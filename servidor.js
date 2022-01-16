@@ -11,7 +11,12 @@ app.get('/productos', (req, res) =>{
     const contenedor1 = new Contenedor.Contenedor('productos.txt')
 
     async function LanzarMetodoGetAll () {
-        res.send(await contenedor1.getAll());
+        try{
+            res.send(await contenedor1.getAll());
+        }
+        catch{
+            console.log("no se pueden mostrar los datos");
+        }
     }
 
     LanzarMetodoGetAll()
@@ -20,13 +25,30 @@ app.get('/productos', (req, res) =>{
 app.get('/productoRamdom', (req, res) =>{
     const contenedor1 = new Contenedor.Contenedor('productos.txt')
 
-    let id = Math.floor((Math.random() * (4-1)+1));
+    async function numeroRamdom (){
+        try{
+            const arrayNuevo = await contenedor1.getAll();
 
-    async function LanzarMetodoGetById (id) {
-        res.send(await contenedor1.getById(id));
+            let id = Math.floor((Math.random() * ((arrayNuevo.length+1)-1)+1));
+            
+            return id
+        }
+        catch{
+            console.log("no se puedo cargar el archivo");
+        }
     }
 
-    LanzarMetodoGetById(id)
+
+    async function LanzarMetodoGetById (id) {
+        try{
+            res.send(await contenedor1.getById(id));
+        }
+        catch{
+            console.log("no se pueden mostrar los datos");
+        }
+    }
+
+  numeroRamdom().then(id => LanzarMetodoGetById(id));
 })
 
 const server = app.listen(3000,() => {
