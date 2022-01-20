@@ -35,7 +35,8 @@ class Contenedor{
             fs.promises.readFile(`./${this.nombreArchivo}`, 'utf-8')
                 .then(contenido => {
                     let arrayProductos = JSON.parse(contenido, 'utf-8');
-                    const find = arrayProductos.find(producto => producto.id == id) || null;
+                    const mensaje = {"no existe un producto con id: ": id}
+                    const find = arrayProductos.find(producto => producto.id == id) || mensaje;
                     resolve(find);
                 })
                 .catch(err => {

@@ -15,7 +15,7 @@ app.get('/productos', (req, res) =>{
             res.send(await contenedor1.getAll());
         }
         catch{
-            console.log("no se pueden mostrar los datos");
+            res.send("no se pueden mostrar los datos");
         }
     }
 
@@ -34,7 +34,7 @@ app.get('/productoRamdom', (req, res) =>{
             return id
         }
         catch{
-            console.log("no se puedo cargar el archivo");
+            return ("no se puedo cargar el archivo");
         }
     }
 
@@ -44,7 +44,7 @@ app.get('/productoRamdom', (req, res) =>{
             res.send(await contenedor1.getById(id));
         }
         catch{
-            console.log("no se pueden mostrar los datos");
+            res.send("no se pueden mostrar los datos");
         }
     }
 
